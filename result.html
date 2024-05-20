@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+            text-align: center;
+        }
+        .result span {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .advice {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .advice h2 {
+            margin-top: 0;
+        }
+        .advice ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .advice.low {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .advice.medium {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .advice.high {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Carbon Footprint</h1>
+        <div class="result" id="result"></div>
+        <div class="advice" id="advice" style="display: none;">
+            <h2>Here Are Some Advices To Reduce Your Carbon Footprint : </h2>
+            <ul id="adviceList"></ul>
+        </div>
+        <a href="carbon footprint.html">Calculate Again</a>
+    </div>
+    <script>
+        // Function to get URL parameters
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get the carbon footprint from the URL parameter
+        const footprint = getParameterByName('footprint');
+        if (footprint) {
+            document.getElementById('result').innerText = `Your Yearly carbon footprint is approximately ${footprint} tons CO2.`;
+
+            // Convert footprint to a number for comparison
+            const footprintValue = parseFloat(footprint);
+            const advice = document.getElementById('advice');
+            const adviceList = document.getElementById('adviceList');
+
+            if (footprintValue >= 0 && footprintValue < 4) {
+                advice.className = 'advice low';
+                adviceList.innerHTML = `
+                    <li><h4>Transportation:</h4>Consider walking, cycling, or using public transport for short trips. Carpool when possible. Maintain your car for optimal fuel efficiency.</li>
+                    <li><h4>Energy:</h4>Switch to LED light bulbs, unplug unused electronics, and shorten shower times. Explore renewable energy options for your home, if feasible.</li>
+                    <li><h4>Consumption:</h4>Buy less, choose durable and energy-efficient products, and extend their lifespan with proper maintenance. Repair instead of replacing whenever possible.</li>
+                    <li><h4>Food:</h4>Reduce meat consumption, especially red meat. Opt for local and seasonal produce. Minimize food waste by planning meals and composting leftovers.</li>
+                `;
+            } else if (footprintValue >= 4 && footprintValue < 10) {
+                advice.className = 'advice medium';
+                adviceList.innerHTML = `
+                  <li><h4>Transportation:</h4> If driving is necessary, consider a fuel-efficient car or electric vehicle. Explore alternative fueling options like biodiesel.</li>
+                    <li><h4>Energy:</h4>Invest in energy-efficient appliances and smart home features to automate energy use. Consider weatherization upgrades for your home.</li>
+                    <li><h4>Consumption:</h4>Buy second-hand or sustainably-sourced products. Support companies with strong environmental practices. Reduce paper use and opt for digital alternatives.</li>
+                    <li><h4>Food:</h4>Transition to a more plant-based diet. Buy organic or locally sourced meat when you do consume it.</li>
+                    <li><h4>Travel:</h4>Choose eco-friendly travel options like trains or buses whenever possible. Offset unavoidable air travel emissions through reputable programs.</li>
+                    
+                `;
+            } else if (footprintValue >= 10) {
+                advice.className = 'advice high';
+                adviceList.innerHTML = `
+                <li><h4>Transportation:</h4>Reduce air travel significantly. Explore offsetting past emissions through reputable programs. Consider relocating closer to work or amenities.</li>
+                    <li><h4>Energy:</h4> Invest in solar panels or other renewable energy sources for your home. Upgrade to highly energy-efficient appliances and optimize home insulation.
+</li>
+                    <li><h4>Consumption:</h4>Downsize your living space to reduce energy consumption. Adopt a minimalist lifestyle, focusing on experiences rather than possessions.</li>
+                    <li><h4>Food:</h4>Adopt a primarily plant-based diet. Support regenerative agriculture practices through your food choices. Minimize food waste through meal planning and composting.</li>
+                   
+                `;
+            }
+
+            // Display the advice section
+            advice.style.display = 'block';
+        } else {
+            document.getElementById('result').innerText = 'No footprint calculated. Please go back and calculate again.';
+        }
+    </script>
+</body>
+</html>
+

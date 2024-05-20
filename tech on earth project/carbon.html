@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carbon Footprint Calculator</h1>
+        <form id="carbonForm" onsubmit="return calculateFootprint()">
+            <div class="form-group">
+                <label for="electricity">Electricity usage (kWh/month):</label>
+                <input type="number" id="electricity" name="electricity" required>
+            </div>
+            <div class="form-group">
+                <label for="gas">Gas usage (therms/month):</label>
+                <input type="number" id="gas" name="gas" required>
+            </div>
+            <div class="form-group">
+                <label for="car">Car travel (miles/month):</label>
+                <input type="number" id="car" name="car" required>
+            </div>
+            <div class="form-group">
+                <label for="flight">Number of flights in past (one years):</label>
+                <input type="number" id="flight" name="flight" required>
+            </div>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+    <script>
+        function calculateFootprint() {
+            const electricity = document.getElementById('electricity').value;
+            const gas = document.getElementById('gas').value;
+            const car = document.getElementById('car').value;
+            const flight = document.getElementById('flight').value;
+
+            const electricityFootprint = electricity * 0.92; // CO2 per kWh in kg
+            const gasFootprint = gas * 105; // CO2 per therm in kg
+            const carFootprint = car * 0.79; // CO2 per mile in kg
+            const flightfootprint = flight * 1100; // co2 per flight in kg
+
+            const totalFootprintKg = electricityFootprint + gasFootprint + carFootprint + flightfootprint;
+            const totalFootprintTons = totalFootprintKg / 1000; // Convert kg to tons
+
+            // Redirect to the results page with the result as a URL parameter
+            window.location.href = `result.html?footprint=${totalFootprintTons.toFixed(2)}`;
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+</html>

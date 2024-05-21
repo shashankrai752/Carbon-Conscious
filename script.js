@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
      const form = document.getElementById('email');
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        window.location.href = 'mailto:shuklakumar704@gmail.com';
+        window.location.href = 'shuklakumar704@gmail.com';
         
     });
 });

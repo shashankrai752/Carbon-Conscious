@@ -5,5 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'carbon footprint.html';
         
     });
+    const button=
+        document.getElementById('myButton');
+
+    button.addEventListner('click',()=>{
+        window.location.href='mailto:shuklakumar704@gmail.com';
+
+    });
      
 });

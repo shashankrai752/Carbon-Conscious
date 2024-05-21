@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'carbon footprint.html';
         
     });
-    const button=
+    const form=
         document.getElementById('myButton');
 
     button.addEventListner('click',()=>{

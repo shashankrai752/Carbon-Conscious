@@ -5,4 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'carbon footprint.html';
         
     });
+     const form = document.getElementById('email');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        window.location.href = 'mailto:shuklakumar704@gmail.com';
+        
+    });
 });
